@@ -1,0 +1,586 @@
+---
+title: "Reportando resultados estadísticos con `report`"
+subtitle: "R-Ladies Cuernavaca"
+author: "Carlos A. Torres Cubilla"
+date: "6 de mayo de 2021"
+output:
+  xaringan::moon_reader:
+    css: ["default", "rladies", "rladies-fonts", "css/custom.css"]
+    lib_dir: libs 
+    seal: false
+    nature:
+      beforeInit: "macros.js"
+      countIncrementalSlides: false
+      highlightStyle: github
+      highlightLines: true
+---
+
+```{r Metadata, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+    description = "Tutorial de xaringan creado para R-Ladies Cuernavaca",
+    generator = "xaringan and remark.js"
+  ) %>% 
+  #meta_name("github-repo" = "spcanelon/xaringan-rladies-xalapa") %>% 
+  meta_social(
+    title = "Reportando resultados estadísticos con 'report'",
+    #url = "https://spcanelon.github.io/xaringan-rladies-xalapa",
+    image = "./img/portada.jpg",
+    image_alt = "Diapositiva titular para el tutorial Introducción al paquete xaringan",
+    og_type = "website",
+    og_author = "Carlos Torres",
+    twitter_card_type = "summary_large_image",
+    twitter_creator = "@carlos_tc22"
+  )
+```
+
+```{r Configuración, include=FALSE}
+# Set options ----
+knitr::opts_chunk$set(
+  comment = "", 
+  echo = TRUE, 
+  message = FALSE, 
+  warning = FALSE
+  )
+
+# xaringanExtra ----
+xaringanExtra::use_animate_all("fade")
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard(
+  button_text = "<i class=\"fa fa-clipboard\"></i>",
+  success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  )
+```
+
+class: left, middle, inverse
+background-image: url(img/portada.jpg)
+background-size: cover
+
+<div style="left: 0; width: 60%; padding; 0">
+  <!-- <div style=""> -->
+    <img src="https://mounabelaid.netlify.app/post/r-ladies-tunis-meetups/featured.png" height="110px" style="padding-left: 20%"/>
+    <img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" height="100px"/>
+  <!-- <div/> -->
+  # `r rmarkdown::metadata$title` 
+  ## **`r rmarkdown::metadata$subtitle`**
+  ### `r rmarkdown::metadata$author`
+  ### `r rmarkdown::metadata$date`
+<div/>
+
+---
+
+name: saludo
+layout: false
+class: inverse, middle, center
+
+<!-- <div class="my-logo-left"></div> -->
+
+# Sobre mí
+
+<img style="border-radius: 50%;" src="img/avatar.png" width="150px"/>
+
+## Carlos Torres `r emo::ji("panama")` 
+
+### Cietífico de Datos 
+
+<a href="https://www.bgeneral.com/">
+  <img src="./img/logo-bg.png" width="30%">
+</a>
+
+[`r shiny::icon("link")` carlostorrescubila.github.io](https://carlostorrescubila.github.io/) &ensp;
+[`r shiny::icon("twitter")` @carlos_tc22](https://twitter.com/carlos_tc22) &ensp;
+[`r shiny::icon("github")` @carlostorrescubila](https://github.com/carlostorrescubila)
+
+---
+class: inverse, center, middle
+
+# Get Started
+
+<img src="https://media4.giphy.com/media/PZcsDneMCLF65uxJuX/200w.webp?cid=ecf05e47vv92p8vn8z8sv26krwswe4jqpr2xfwo5126bey49&rid=200w.webp" width="50%">
+
+---
+class: center
+
+# `report`: “From R to your manuscript”
+
+<a href="https://easystats.github.io/report/">
+  <img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" width="50%">
+</a>
+
+---
+
+# ¿Qué es `report`? ¿Para qué sirve?
+
+`report` es un paquete en lenguaje R perteneciente al grupo de paquetes conocido como [`easystats`](https://easystats.github.io/easystats/). El objetivo principal de `report` es cerrar la brecha entre la salida de R y los resultados estructurados contenidos en un manuscrito. Este genera automáticamente informes de modelos y *dataframes* de acuerdo con las pautas de las mejores prácticas (por ejemplo, el estilo de la [APA](https://apastyle.apa.org/)), lo que garantiza la estandarización y la calidad al informar resultados.
+
+--
+
+Este es un paquete joven y en continuo desarrollo. Fue publicado en [GitHub](https://github.com/easystats/report) el 29 de octubre de 2020 (version 0.0.1) y actualmente se encuentra en su versión 0.2.0. Sus desarrolladores invitan la comunidad a colaborar en el desarrollo del paquete respetando la guía de contribuciones que puede encontrar [AQUÍ](https://github.com/easystats/report/blob/master/.github/CONTRIBUTING.md)
+
+--
+
+## Instalación
+
+```{r Instalation, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("easystats/report") # No está en CRAN
+```
+
+---
+
+# Flujo de trabajo
+
+![report image](https://easystats.github.io/report/reference/figures/workflow.png)
+
+---
+
+# Cargar paquetes
+
+```{r Packages}
+library(dplyr)
+library(report) #<<
+library(palmerpenguins)
+```
+
+--
+
+<br><br>
+
+.center[
+
+<a href="https://dplyr.tidyverse.org/">
+  <img src="https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b6d72e8f01f28d14310e8370/193fc/css/images/hex/dplyr.png" width="25%">
+</a>
+<a href="https://easystats.github.io/report/">
+  <img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" width="25%">
+</a>
+<a href="https://allisonhorst.github.io/palmerpenguins/">
+  <img src="https://allisonhorst.github.io/palmerpenguins/man/figures/palmerpenguins.png" width="25%">
+</a>
+
+]
+
+---
+
+# Datos utilizados: `penguins`
+
+Los datos fueron recopilados y puestos a disposición por la [Dra. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) y la [Palmer Station Antarctica LTER](https://pal.lternet.edu/), miembro de la [Red de Investigación Ecológica a Largo Plazo](https://lternet.edu/).
+
+--
+
+.center[
+<img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" width="80%">
+]
+
+---
+
+# Reportes específicos
+
+Las principales funciones que generan informes específicos que no están relacionados con métodos estadísticos son:
+
+- `report_system()`
+
+- `report_packages()`
+
+- `cite_packages()`
+
+- `report_date()`
+
+- `report_participants()`
+
+- `report_sample()`
+
+---
+
+## Informe del sistema
+
+### Default
+
+```{r report sistema}
+report_system()
+```
+
+### Summary
+
+```{r report sistema summary}
+report_system() %>% summary()
+```
+
+---
+
+## Informe de paquetes
+
+### Default
+
+```{r report paquetes}
+report_packages()
+```
+
+### Summary
+
+```{r report paquetes summary}
+report_packages() %>% summary()
+```
+
+---
+
+## Citar paquetes
+
+.panelset[
+
+.panel[.panel-name[R base]
+```{r citar r base}
+citation("dplyr")
+```
+]
+
+.panel[.panel-name[report]
+#### Para las referencias
+```{r citar report}
+cite_packages()
+```
+
+#### Para las citas
+```{r citar report summary}
+cite_packages() %>% 
+  format_citation(authorsdate = TRUE, short = TRUE, intext = FALSE)
+```
+]
+
+.panel[.panel-name[report 2]
+```{r}
+report(sessionInfo())
+```
+]
+
+]
+
+---
+
+## Informe de fecha
+
+### Default
+
+```{r report fecha}
+report_date()
+```
+
+### Summary
+
+```{r report fecha summary}
+report_date() %>% summary()
+```
+
+---
+
+## Informe de participantes (Datos)
+
+```{r datos participantes}
+Participantes <- data.frame(
+  "Edad" = c(22, 22, 54, 34, 18, 28, 42, 45),
+  "Genero" = c("F", "M", "F", "M", "F", "M", "F", "M"),
+  "Años_Experiencia" = c(1, 2, 24, 9, 0, 5, 12, 20),
+  "Nivel_Educacion" = c("Highschool", "Bachelor", "PhD", "Bachelor", "Highschool", "Bachelor", "Bachelor", "PhD"),
+  "Grupo" = c("A", "A", "A", "A", "B", "B", "B", "B")
+)
+```
+
+```{r datos participantes show, echo=FALSE}
+DT::datatable(Participantes, options = list(pageLength = 4))
+```
+
+---
+
+## Informe de participantes
+
+.panelset[
+
+.panel[.panel-name[Edad y género]
+```{r participantes }
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero"
+  )
+```
+]
+
+.panel[.panel-name[Años de educación]
+```{r participantes años educacion}
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  education = "Años_Experiencia"
+  )
+```
+]
+
+.panel[.panel-name[Nivel de eduación]
+```{r participantes nivel educacion}
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  education = "Nivel_Educacion"
+  )
+```
+]
+
+.panel[.panel-name[Por grupo]
+```{r participantes grupo}
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  group = "Grupo"
+  )
+```
+]
+
+]
+
+---
+
+## Informe de muestra
+
+.panelset[
+
+.panel[.panel-name[Default]
+```{r}
+report_sample(penguins)
+```
+]
+
+.panel[.panel-name[Por grupo]
+```{r}
+report_sample(penguins, group_by = "species")
+```
+]
+
+.panel[.panel-name[Seleccionando columnas]
+```{r}
+report_sample(
+  penguins,
+  group_by = "species",
+  select = c("species", "sex", "bill_length_mm", "bill_depth_mm")
+  )
+```
+]
+
+.panel[.panel-name[Excluyendo columnas]
+```{r}
+report_sample(
+  penguins, 
+  group_by = "species",
+  exclude = c("island", "flipper_length_mm", "body_mass_g", "year")
+  )
+```
+]
+
+]
+
+---
+class: inverse, center, middle
+
+# Informe de un data frame 
+
+---
+
+# Informe de un data frame 
+
+.panelset[
+
+.panel[.panel-name[Default]
+```{r}
+report(penguins)
+```
+]
+
+.panel[.panel-name[Summary]
+```{r}
+report(penguins) %>% 
+  summary()
+```
+]
+
+.panel[.panel-name[Usando dplyr]
+```{r}
+penguins %>%
+  select(-ends_with("_mm")) %>% 
+  #group_by(species) %>% 
+  report() %>% 
+  summary()
+```
+]
+
+]
+
+---
+class: inverse, center, middle
+
+# Reportes estadísticos
+
+<img src="https://media4.giphy.com/media/LPrAK9rEedDwjtL1J0/200.webp?cid=ecf05e47ugwngg89cftjjdg4xtuqv8ydamdgunpg7w7794s5&rid=200.webp" width="50%">
+
+---
+
+# Test de asociación
+
+La prueba de asociación o correlación se utiliza para probar si la correlación (indicada $\rho$) entre 2 variables es significativamente distinta de 0 o no en la población.
+
+$$
+\begin{cases}
+H_0: \rho = 0\\
+H_1: \rho \neq 0
+\end{cases}
+$$
+
+---
+
+# Test de asociación
+
+.panelset[
+
+.panel[.panel-name[R base]
+```{r}
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  )
+```
+]
+
+.panel[.panel-name[report]
+```{r}
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  ) %>% 
+  report()
+```
+]
+
+.panel[.panel-name[report as table]
+```{r}
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  ) %>% 
+  report() %>% 
+  as.data.frame()
+```
+]
+
+]
+
+---
+
+# Diferencia de medias (t-test)
+
+La prueba de diferencia de medias es un test paramétrico que determina si las medias de dos conjuntos de datos son significativamente diferentes entre sí. Las hipótesis a contrastar son:
+
+$$
+\begin{cases}
+H_0: \mu_{1} = \mu_{2} \\
+H_1: \mu_{1} \neq \mu_{2} 
+\end{cases}
+$$
+
+## Estadísticos de contraste
+
+.panelset[
+
+.panel[.panel-name[Muestras idependientes]
+$$
+t = 
+$$
+]
+
+.panel[.panel-name[Muestras apareadas]
+$$
+t = 
+$$
+]
+
+]
+
+---
+
+# Diferencia de medias (t-test)
+
+.panelset[
+
+.panel[.panel-name[R base]
+```{r}
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  )
+```
+]
+
+.panel[.panel-name[report]
+```{r}
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  ) %>% 
+  report()
+```
+]
+
+.panel[.panel-name[report as table]
+```{r}
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  ) %>% 
+  report() %>% 
+  as.data.frame()
+```
+]
+
+]
+
+---
+
+# ANOVA
+
+---
+
+# Regresión lineal
+
+---
+
+class: inverse, center, middle
+
+# No `report`
+
+<img src="https://media2.giphy.com/media/hyyV7pnbE0FqLNBAzs/200.webp?cid=ecf05e47tm6f3m9fpzck6mm3jh3c50u40hfkxjxnua0x962s&rid=200.webp" width="50%">
+
+---
+
+class: inverse, center, middle
+
+# Using `report`
+
+<img src="https://media2.giphy.com/media/l0amJzVHIAfl7jMDos/200.webp?cid=ecf05e47tm6f3m9fpzck6mm3jh3c50u40hfkxjxnua0x962s&rid=200.webp" width="50%">
+
+---
+
+class: inverse
+
+# Gracias por su atención!!
+
+.pull-right[.pull-down[
+### `r shiny::icon("paper-plane")` carlos221296@gmail.com
+### `r shiny::icon("link")` [carlostorrescubila.github.io/](carlostorrescubila.github.io/)
+### `r shiny::icon("twitter")` [@carlos_tc22](https://twitter.com/carlos_tc22)
+### `r shiny::icon("github")` [@carlostorrescubila](https://github.com/carlostorrescubila)
+]]

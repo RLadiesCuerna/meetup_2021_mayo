@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reportando resultados estadísticos con report</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Carlos A. Torres Cubilla" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <meta name="description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
+    <meta name="generator" content="xaringan and remark.js"/>
+    <meta name="twitter:title" content="Reportando resultados estadísticos con &#39;report&#39;"/>
+    <meta name="twitter:description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
+    <meta name="twitter:image:src" content="./img/portada.jpg"/>
+    <meta name="twitter:image:alt" content="Diapositiva titular para el tutorial Introducción al paquete xaringan"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@carlos_tc22"/>
+    <meta name="twitter:site" content="@carlos_tc22"/>
+    <meta property="og:title" content="Reportando resultados estadísticos con &#39;report&#39;"/>
+    <meta property="og:description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
+    <meta property="og:image" content="./img/portada.jpg"/>
+    <meta property="og:image:alt" content="Diapositiva titular para el tutorial Introducción al paquete xaringan"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Carlos Torres"/>
+    <link href="libs/animate.css-xaringan-3.7.2/animate.fade.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="libs/font-awesome-5.13.0/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome-5.13.0/css/v4-shims.min.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/jquery-3.5.1/jquery.min.js"></script>
+    <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding-0.18/datatables.js"></script>
+    <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: left, middle, inverse
+background-image: url(img/portada.jpg)
+background-size: cover
+
+&lt;div style="left: 0; width: 60%; padding; 0"&gt;
+  &lt;!-- &lt;div style=""&gt; --&gt;
+    &lt;img src="https://mounabelaid.netlify.app/post/r-ladies-tunis-meetups/featured.png" height="110px" style="padding-left: 20%"/&gt;
+    &lt;img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" height="100px"/&gt;
+  &lt;!-- &lt;div/&gt; --&gt;
+  # Reportando resultados estadísticos con `report` 
+  ## **R-Ladies Cuernavaca**
+  ### Carlos A. Torres Cubilla
+  ### 6 de mayo de 2021
+&lt;div/&gt;
+
+---
+
+name: saludo
+layout: false
+class: inverse, middle, center
+
+&lt;!-- &lt;div class="my-logo-left"&gt;&lt;/div&gt; --&gt;
+
+# Sobre mí
+
+&lt;img style="border-radius: 50%;" src="img/avatar.png" width="150px"/&gt;
+
+## Carlos Torres 🇵🇦 
+
+### Cietífico de Datos 
+
+&lt;a href="https://www.bgeneral.com/"&gt;
+  &lt;img src="./img/logo-bg.png" width="30%"&gt;
+&lt;/a&gt;
+
+[<i class="fa fa-link" role="presentation" aria-label="link icon"></i> carlostorrescubila.github.io](https://carlostorrescubila.github.io/) &amp;ensp;
+[<i class="fab fa-twitter" role="presentation" aria-label="twitter icon"></i> @carlos_tc22](https://twitter.com/carlos_tc22) &amp;ensp;
+[<i class="fab fa-github" role="presentation" aria-label="github icon"></i> @carlostorrescubila](https://github.com/carlostorrescubila)
+
+---
+class: inverse, center, middle
+
+# Get Started
+
+&lt;img src="https://media4.giphy.com/media/PZcsDneMCLF65uxJuX/200w.webp?cid=ecf05e47vv92p8vn8z8sv26krwswe4jqpr2xfwo5126bey49&amp;rid=200w.webp" width="50%"&gt;
+
+---
+class: center
+
+# `report`: “From R to your manuscript”
+
+&lt;a href="https://easystats.github.io/report/"&gt;
+  &lt;img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" width="50%"&gt;
+&lt;/a&gt;
+
+---
+
+# ¿Qué es `report`? ¿Para qué sirve?
+
+`report` es un paquete en lenguaje R perteneciente al grupo de paquetes conocido como [`easystats`](https://easystats.github.io/easystats/). El objetivo principal de `report` es cerrar la brecha entre la salida de R y los resultados estructurados contenidos en un manuscrito. Este genera automáticamente informes de modelos y *dataframes* de acuerdo con las pautas de las mejores prácticas (por ejemplo, el estilo de la [APA](https://apastyle.apa.org/)), lo que garantiza la estandarización y la calidad al informar resultados.
+
+--
+
+Este es un paquete joven y en continuo desarrollo. Fue publicado en [GitHub](https://github.com/easystats/report) el 29 de octubre de 2020 (version 0.0.1) y actualmente se encuentra en su versión 0.2.0. Sus desarrolladores invitan la comunidad a colaborar en el desarrollo del paquete respetando la guía de contribuciones que puede encontrar [AQUÍ](https://github.com/easystats/report/blob/master/.github/CONTRIBUTING.md)
+
+--
+
+## Instalación
+
+
+```r
+install.packages("remotes")
+remotes::install_github("easystats/report") # No está en CRAN
+```
+
+---
+
+# Flujo de trabajo
+
+![report image](https://easystats.github.io/report/reference/figures/workflow.png)
+
+---
+
+# Cargar paquetes
+
+
+```r
+library(dplyr)
+*library(report)
+library(palmerpenguins)
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+.center[
+
+&lt;a href="https://dplyr.tidyverse.org/"&gt;
+  &lt;img src="https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b6d72e8f01f28d14310e8370/193fc/css/images/hex/dplyr.png" width="25%"&gt;
+&lt;/a&gt;
+&lt;a href="https://easystats.github.io/report/"&gt;
+  &lt;img src="https://github.com/easystats/report/blob/master/man/figures/logo.png?raw=true" width="25%"&gt;
+&lt;/a&gt;
+&lt;a href="https://allisonhorst.github.io/palmerpenguins/"&gt;
+  &lt;img src="https://allisonhorst.github.io/palmerpenguins/man/figures/palmerpenguins.png" width="25%"&gt;
+&lt;/a&gt;
+
+]
+
+---
+
+# Datos utilizados: `penguins`
+
+Los datos fueron recopilados y puestos a disposición por la [Dra. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) y la [Palmer Station Antarctica LTER](https://pal.lternet.edu/), miembro de la [Red de Investigación Ecológica a Largo Plazo](https://lternet.edu/).
+
+--
+
+.center[
+&lt;img src="https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png" width="80%"&gt;
+]
+
+---
+
+# Reportes específicos
+
+Las principales funciones que generan informes específicos que no están relacionados con métodos estadísticos son:
+
+- `report_system()`
+
+- `report_packages()`
+
+- `cite_packages()`
+
+- `report_date()`
+
+- `report_participants()`
+
+- `report_sample()`
+
+---
+
+## Informe del sistema
+
+### Default
+
+
+```r
+report_system()
+```
+
+```
+Analyses were conducted using the R Statistical language (version 4.0.3; R Core Team, 2020) on Ubuntu 20.04.2 LTS
+```
+
+### Summary
+
+
+```r
+report_system() %&gt;% summary()
+```
+
+```
+The analysis was done using the R Statistical language (v4.0.3; R Core Team, 2020) on Ubuntu 20.04.2 LTS
+```
+
+---
+
+## Informe de paquetes
+
+### Default
+
+
+```r
+report_packages()
+```
+
+```
+  - metathis (version 1.0.3; Garrick Aden-Buie, 2020)
+  - dplyr (version 1.0.5; Hadley Wickham et al., 2021)
+  - palmerpenguins (version 0.1.0; Horst AM et al., 2020)
+  - report (version 0.3.0; Makowski et al., 2020)
+  - R (version 4.0.3; R Core Team, 2020)
+```
+
+### Summary
+
+
+```r
+report_packages() %&gt;% summary()
+```
+
+```
+  - metathis (v1.0.3)
+  - dplyr (v1.0.5)
+  - palmerpenguins (v0.1.0)
+  - report (v0.3.0)
+  - R (v4.0.3)
+```
+
+---
+
+## Citar paquetes
+
+.panelset[
+
+.panel[.panel-name[R base]
+
+```r
+citation("dplyr")
+```
+
+```
+
+To cite package 'dplyr' in publications use:
+
+  Hadley Wickham, Romain François, Lionel Henry and Kirill Müller
+  (2021). dplyr: A Grammar of Data Manipulation.
+  https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {dplyr: A Grammar of Data Manipulation},
+    author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller},
+    year = {2021},
+    note = {https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr},
+  }
+```
+]
+
+.panel[.panel-name[report]
+#### Para las referencias
+
+```r
+cite_packages()
+```
+
+```
+  - Garrick Aden-Buie (2020). metathis: HTML Metadata Tags for 'R Markdown' and 'Shiny'. R package version 1.0.3. https://github.com/gadenbuie/metathis
+  - Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr.
+  - Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. https://allisonhorst.github.io/palmerpenguins/
+  - Makowski, D., Ben-Shachar, M.S., Patil, I. &amp; Lüdecke, D. (2020). Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption. CRAN. Available from https://github.com/easystats/report. doi: .
+  - R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+```
+
+#### Para las citas
+
+```r
+cite_packages() %&gt;% 
+  format_citation(authorsdate = TRUE, short = TRUE, intext = FALSE)
+```
+
+```
+  - Garrick Aden-Buie (2020)
+  - Hadley Wickham et al. (2021)
+  - Horst AM et al. (2020)
+  - Makowski et al. (2020)
+  - R Core Team (2020)
+```
+]
+
+.panel[.panel-name[report 2]
+
+```r
+report(sessionInfo())
+```
+
+```
+Analyses were conducted using the R Statistical language (version 4.0.3; R Core Team, 2020) on Ubuntu 20.04.2 LTS, using the packages metathis (version 1.0.3; Garrick Aden-Buie, 2020), dplyr (version 1.0.5; Hadley Wickham et al., 2021), palmerpenguins (version 0.1.0; Horst AM et al., 2020) and report (version 0.3.0; Makowski et al., 2020).
+
+References
+----------
+  - Garrick Aden-Buie (2020). metathis: HTML Metadata Tags for 'R Markdown' and 'Shiny'. R package version 1.0.3. https://github.com/gadenbuie/metathis
+  - Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr.
+  - Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. https://allisonhorst.github.io/palmerpenguins/
+  - Makowski, D., Ben-Shachar, M.S., Patil, I. &amp; Lüdecke, D. (2020). Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices Adoption. CRAN. Available from https://github.com/easystats/report. doi: .
+  - R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+```
+]
+
+]
+
+---
+
+## Informe de fecha
+
+### Default
+
+
+```r
+report_date()
+```
+
+```
+It's Thursday, April 29 of the year 2021, at  7am 38 and 58 seconds
+```
+
+### Summary
+
+
+```r
+report_date() %&gt;% summary()
+```
+
+```
+29/04/21 - 07:38:58
+```
+
+---
+
+## Informe de participantes (Datos)
+
+
+```r
+Participantes &lt;- data.frame(
+  "Edad" = c(22, 22, 54, 34, 18, 28, 42, 45),
+  "Genero" = c("F", "M", "F", "M", "F", "M", "F", "M"),
+  "Años_Experiencia" = c(1, 2, 24, 9, 0, 5, 12, 20),
+  "Nivel_Educacion" = c("Highschool", "Bachelor", "PhD", "Bachelor", "Highschool", "Bachelor", "Bachelor", "PhD"),
+  "Grupo" = c("A", "A", "A", "A", "B", "B", "B", "B")
+)
+```
+
+<div id="htmlwidget-162be8e1260fd1f98688" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-162be8e1260fd1f98688">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8"],[22,22,54,34,18,28,42,45],["F","M","F","M","F","M","F","M"],[1,2,24,9,0,5,12,20],["Highschool","Bachelor","PhD","Bachelor","Highschool","Bachelor","Bachelor","PhD"],["A","A","A","A","B","B","B","B"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Edad<\/th>\n      <th>Genero<\/th>\n      <th>Años_Experiencia<\/th>\n      <th>Nivel_Educacion<\/th>\n      <th>Grupo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Informe de participantes
+
+.panelset[
+
+.panel[.panel-name[Edad y género]
+
+```r
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero"
+  )
+```
+
+```
+[1] "8 participants (Mean age = 33.1, SD = 12.9, range: [18, 54]; 50.0% females)"
+```
+]
+
+.panel[.panel-name[Años de educación]
+
+```r
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  education = "Años_Experiencia"
+  )
+```
+
+```
+[1] "8 participants (Mean age = 33.1, SD = 12.9, range: [18, 54]; 50.0% females; Mean education = 9.1, SD = 9.0, range: [0, 24])"
+```
+]
+
+.panel[.panel-name[Nivel de eduación]
+
+```r
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  education = "Nivel_Educacion"
+  )
+```
+
+```
+[1] "8 participants (Mean age = 33.1, SD = 12.9, range: [18, 54]; 50.0% females; Education: Bachelor, 50.00%; Highschool, 25.00%; PhD, 25.00%)"
+```
+]
+
+.panel[.panel-name[Por grupo]
+
+```r
+report_participants(
+  Participantes, 
+  age = "Edad", 
+  sex = "Genero", 
+  group = "Grupo"
+  )
+```
+
+```
+[1] "For the 'Grupo - A' group: 4 participants (Mean age = 33.0, SD = 15.1, range: [22, 54]; 50.0% females) and for the 'Grupo - B' group: 4 participants (Mean age = 33.2, SD = 12.6, range: [18, 45]; 50.0% females)"
+```
+]
+
+]
+
+---
+
+## Informe de muestra
+
+.panelset[
+
+.panel[.panel-name[Default]
+
+```r
+report_sample(penguins)
+```
+
+```
+# Descriptive Statistics
+
+Variable                    |          Summary
+----------------------------------------------
+species [Adelie], %         |             44.2
+species [Chinstrap], %      |             19.8
+species [Gentoo], %         |             36.0
+island [Biscoe], %          |             48.8
+island [Dream], %           |             36.0
+island [Torgersen], %       |             15.1
+Mean bill_length_mm (SD)    |     43.92 (5.46)
+Mean bill_depth_mm (SD)     |     17.15 (1.97)
+Mean flipper_length_mm (SD) |   200.92 (14.06)
+Mean body_mass_g (SD)       | 4201.75 (801.95)
+sex [male], %               |             50.5
+Mean year (SD)              |   2008.03 (0.82)
+```
+]
+
+.panel[.panel-name[Por grupo]
+
+```r
+report_sample(penguins, group_by = "species")
+```
+
+```
+# Descriptive Statistics
+
+Variable                    |   Adelie (n=152) | Chinstrap (n=68) |   Gentoo (n=124) |            Total
+-------------------------------------------------------------------------------------------------------
+island [Biscoe], %          |             28.9 |              0.0 |            100.0 |             48.8
+island [Dream], %           |             36.8 |            100.0 |              0.0 |             36.0
+island [Torgersen], %       |             34.2 |              0.0 |              0.0 |             15.1
+Mean bill_length_mm (SD)    |     38.79 (2.66) |     48.83 (3.34) |     47.50 (3.08) |     43.92 (5.46)
+Mean bill_depth_mm (SD)     |     18.35 (1.22) |     18.42 (1.14) |     14.98 (0.98) |     17.15 (1.97)
+Mean flipper_length_mm (SD) |    189.95 (6.54) |    195.82 (7.13) |    217.19 (6.48) |   200.92 (14.06)
+Mean body_mass_g (SD)       | 3700.66 (458.57) | 3733.09 (384.34) | 5076.02 (504.12) | 4201.75 (801.95)
+sex [male], %               |             50.0 |             50.0 |             51.3 |             50.5
+Mean year (SD)              |   2008.01 (0.82) |   2007.97 (0.86) |   2008.08 (0.79) |   2008.03 (0.82)
+```
+]
+
+.panel[.panel-name[Seleccionando columnas]
+
+```r
+report_sample(
+  penguins,
+  group_by = "species",
+  select = c("species", "sex", "bill_length_mm", "bill_depth_mm")
+  )
+```
+
+```
+# Descriptive Statistics
+
+Variable                 | Adelie (n=152) | Chinstrap (n=68) | Gentoo (n=124) |        Total
+--------------------------------------------------------------------------------------------
+sex [male], %            |           50.0 |             50.0 |           51.3 |         50.5
+Mean bill_length_mm (SD) |   38.79 (2.66) |     48.83 (3.34) |   47.50 (3.08) | 43.92 (5.46)
+Mean bill_depth_mm (SD)  |   18.35 (1.22) |     18.42 (1.14) |   14.98 (0.98) | 17.15 (1.97)
+```
+]
+
+.panel[.panel-name[Excluyendo columnas]
+
+```r
+report_sample(
+  penguins, 
+  group_by = "species",
+  exclude = c("island", "flipper_length_mm", "body_mass_g", "year")
+  )
+```
+
+```
+# Descriptive Statistics
+
+Variable                 | Adelie (n=152) | Chinstrap (n=68) | Gentoo (n=124) |        Total
+--------------------------------------------------------------------------------------------
+Mean bill_length_mm (SD) |   38.79 (2.66) |     48.83 (3.34) |   47.50 (3.08) | 43.92 (5.46)
+Mean bill_depth_mm (SD)  |   18.35 (1.22) |     18.42 (1.14) |   14.98 (0.98) | 17.15 (1.97)
+sex [male], %            |           50.0 |             50.0 |           51.3 |         50.5
+```
+]
+
+]
+
+---
+class: inverse, center, middle
+
+# Informe de un data frame 
+
+---
+
+# Informe de un data frame 
+
+.panelset[
+
+.panel[.panel-name[Default]
+
+```r
+report(penguins)
+```
+
+```
+The data contains 344 observations of the following variables:
+  - species: 3 levels, namely Adelie (n = 152, 44.19%), Chinstrap (n = 68, 19.77%) and Gentoo (n = 124, 36.05%)
+  - island: 3 levels, namely Biscoe (n = 168, 48.84%), Dream (n = 124, 36.05%) and Torgersen (n = 52, 15.12%)
+  - bill_length_mm: n = 344, Mean = 43.92, SD = 5.46, Median = , MAD = 7.04, range: [32.10, 59.60], Skewness = 0.05, Kurtosis = -0.88, 0.58% missing
+  - bill_depth_mm: n = 344, Mean = 17.15, SD = 1.97, Median = , MAD = 2.22, range: [13.10, 21.50], Skewness = -0.14, Kurtosis = -0.91, 0.58% missing
+  - flipper_length_mm: n = 344, Mean = 200.92, SD = 14.06, Median = , MAD = 16.31, range: [172, 231], Skewness = 0.35, Kurtosis = -0.98, 0.58% missing
+  - body_mass_g: n = 344, Mean = 4201.75, SD = 801.95, Median = , MAD = 889.56, range: [2700, 6300], Skewness = 0.47, Kurtosis = -0.72, 0.58% missing
+  - sex: 2 levels, namely female (n = 165, 47.97%), male (n = 168, 48.84%) and missing (n = 11, 3.20%)
+  - year: n = 344, Mean = 2008.03, SD = 0.82, Median = 2008.00, MAD = 1.48, range: [2007, 2009], Skewness = -0.05, Kurtosis = -1.50, 0% missing
+```
+]
+
+.panel[.panel-name[Summary]
+
+```r
+report(penguins) %&gt;% 
+  summary()
+```
+
+```
+The data contains 344 observations of the following variables:
+  - species: 3 levels, namely Adelie (n = 152), Chinstrap (n = 68) and Gentoo (n = 124)
+  - island: 3 levels, namely Biscoe (n = 168), Dream (n = 124) and Torgersen (n = 52)
+  - bill_length_mm: Mean = 43.92, SD = 5.46, range: [32.10, 59.60], 0.58% missing
+  - bill_depth_mm: Mean = 17.15, SD = 1.97, range: [13.10, 21.50], 0.58% missing
+  - flipper_length_mm: Mean = 200.92, SD = 14.06, range: [172, 231], 0.58% missing
+  - body_mass_g: Mean = 4201.75, SD = 801.95, range: [2700, 6300], 0.58% missing
+  - sex: 2 levels, namely female (n = 165), male (n = 168) and missing (n = 11)
+  - year: Mean = 2008.03, SD = 0.82, range: [2007, 2009]
+```
+]
+
+.panel[.panel-name[Usando dplyr]
+
+```r
+penguins %&gt;%
+  select(-ends_with("_mm")) %&gt;% 
+  #group_by(species) %&gt;% 
+  report() %&gt;% 
+  summary()
+```
+
+```
+The data contains 344 observations of the following variables:
+  - species: 3 levels, namely Adelie (n = 152), Chinstrap (n = 68) and Gentoo (n = 124)
+  - island: 3 levels, namely Biscoe (n = 168), Dream (n = 124) and Torgersen (n = 52)
+  - body_mass_g: Mean = 4201.75, SD = 801.95, range: [2700, 6300], 0.58% missing
+  - sex: 2 levels, namely female (n = 165), male (n = 168) and missing (n = 11)
+  - year: Mean = 2008.03, SD = 0.82, range: [2007, 2009]
+```
+]
+
+]
+
+---
+class: inverse, center, middle
+
+# Reportes estadísticos
+
+&lt;img src="https://media4.giphy.com/media/LPrAK9rEedDwjtL1J0/200.webp?cid=ecf05e47ugwngg89cftjjdg4xtuqv8ydamdgunpg7w7794s5&amp;rid=200.webp" width="50%"&gt;
+
+---
+
+# Test de asociación
+
+La prueba de asociación o correlación se utiliza para probar si la correlación (indicada `\(\rho\)`) entre 2 variables es significativamente distinta de 0 o no en la población.
+
+$$
+`\begin{cases}
+H_0: \rho = 0\\
+H_1: \rho \neq 0
+\end{cases}`
+$$
+
+---
+
+# Test de asociación
+
+.panelset[
+
+.panel[.panel-name[R base]
+
+```r
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  )
+```
+
+```
+
+	Pearson's product-moment correlation
+
+data:  penguins$bill_length_mm and penguins$bill_depth_mm
+t = -4.4591, df = 340, p-value = 1.12e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.3328072 -0.1323004
+sample estimates:
+       cor 
+-0.2350529 
+```
+]
+
+.panel[.panel-name[report]
+
+```r
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  ) %&gt;% 
+  report()
+```
+
+```
+Effect sizes were labelled following Funder's (2019) recommendations.
+
+The Pearson's product-moment correlation between penguins$bill_length_mm and penguins$bill_depth_mm is negative, statistically significant, and medium (r = -0.24, 95% CI [-0.33, -0.13], t(340) = -4.46, p &lt; .001)
+```
+]
+
+.panel[.panel-name[report as table]
+
+```r
+cor.test(
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  method = "pearson"
+  ) %&gt;% 
+  report() %&gt;% 
+  as.data.frame()
+```
+
+```
+Parameter1              |             Parameter2 |     r |         95% CI | t(340) |      p |                               Method
+----------------------------------------------------------------------------------------------------------------------------------
+penguins$bill_length_mm | penguins$bill_depth_mm | -0.24 | [-0.33, -0.13] |  -4.46 | &lt; .001 | Pearson's product-moment correlation
+```
+]
+
+]
+
+---
+
+# Diferencia de medias (t-test)
+
+La prueba de diferencia de medias es un test paramétrico que determina si las medias de dos conjuntos de datos son significativamente diferentes entre sí. Las hipótesis a contrastar son:
+
+$$
+`\begin{cases}
+H_0: \mu_{1} = \mu_{2} \\
+H_1: \mu_{1} \neq \mu_{2} 
+\end{cases}`
+$$
+
+## Estadísticos de contraste
+
+.panelset[
+
+.panel[.panel-name[Muestras idependientes]
+$$
+t = 
+$$
+]
+
+.panel[.panel-name[Muestras apareadas]
+$$
+t = 
+$$
+]
+
+]
+
+---
+
+# Diferencia de medias (t-test)
+
+.panelset[
+
+.panel[.panel-name[R base]
+
+```r
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  )
+```
+
+```
+
+	Welch Two Sample t-test
+
+data:  body_mass_g by sex
+t = -8.5545, df = 323.9, p-value = 4.794e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -840.5783 -526.2453
+sample estimates:
+mean in group female   mean in group male 
+            3862.273             4545.685 
+```
+]
+
+.panel[.panel-name[report]
+
+```r
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  ) %&gt;% 
+  report()
+```
+
+```
+Effect sizes were labelled following Cohen's (1988) recommendations.
+
+The Welch Two Sample t-test testing the difference of body_mass_g by sex (mean in group female = 3862.27, mean in group male = 4545.68) suggests that the effect is positive, statistically significant, and large (difference = 683.41, 95% CI [-840.58, -526.25], t(323.90) = -8.55, p &lt; .001; Cohen's d = -0.95, 95% CI [-1.18, -0.72])
+```
+]
+
+.panel[.panel-name[report as table]
+
+```r
+t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  ) %&gt;% 
+  report() %&gt;% 
+  as.data.frame()
+```
+
+```
+Parameter   | Group | Mean_Group1 | Mean_Group2 | Difference |             95% CI | t(323.90) |      p |                  Method |     d |          d  CI
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+body_mass_g |   sex |     3862.27 |     4545.68 |     683.41 | [-840.58, -526.25] |     -8.55 | &lt; .001 | Welch Two Sample t-test | -0.95 | [-1.18, -0.72]
+```
+]
+
+]
+
+---
+
+# ANOVA
+
+---
+
+# Regresión lineal
+
+---
+
+class: inverse, center, middle
+
+# No `report`
+
+&lt;img src="https://media2.giphy.com/media/hyyV7pnbE0FqLNBAzs/200.webp?cid=ecf05e47tm6f3m9fpzck6mm3jh3c50u40hfkxjxnua0x962s&amp;rid=200.webp" width="50%"&gt;
+
+---
+
+class: inverse, center, middle
+
+# Using `report`
+
+&lt;img src="https://media2.giphy.com/media/l0amJzVHIAfl7jMDos/200.webp?cid=ecf05e47tm6f3m9fpzck6mm3jh3c50u40hfkxjxnua0x962s&amp;rid=200.webp" width="50%"&gt;
+
+---
+
+class: inverse
+
+# Gracias por su atención!!
+
+.pull-right[.pull-down[
+### <i class="fa fa-paper-plane" role="presentation" aria-label="paper-plane icon"></i> carlos221296@gmail.com
+### <i class="fa fa-link" role="presentation" aria-label="link icon"></i> [carlostorrescubila.github.io/](carlostorrescubila.github.io/)
+### <i class="fab fa-twitter" role="presentation" aria-label="twitter icon"></i> [@carlos_tc22](https://twitter.com/carlos_tc22)
+### <i class="fab fa-github" role="presentation" aria-label="github icon"></i> [@carlostorrescubila](https://github.com/carlostorrescubila)
+]]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false,
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+.remark-slide-content{
+  padding: 1em 2.5em 1em 2.5em;
+}
+
+.my-logo-left {
+  content: "";
+  position: absolute;
+  top: 15px; 
+  left: 20px;
+  height: 40px;
+  width: 120px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(https://www.r-project.org/logo/Rlogo.png);
+}
+
+.my-logo-right {
+content: "";
+    position: absolute;
+    top: 15px;
+    right:   8px;
+    height: 40px;
+    width: 120px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(https://www.r-project.org/logo/Rlogo.png);
+}
+
+#slide-saludo p{
+  margin: 30px 0;
+}
+
+body {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+div.pull-down {
+  position: absolute;
+  bottom: 50px;
+}
+
+pre {
+  overflow-x: scroll;
+  margin-block-start: 5;
+  margin-block-end: 10;
+}
+
+h1 {
+  margin-block-start: 25px;
+  margin-block-end: 25px;
+}
+
+h1#gracias-por-su-atenci-n- {
+margin-block-start: 50px;
+}
+
+h2 {
+  margin-block-start: 25px;
+  margin-block-end: 25px;
+}
+
+h3#report {
+  margin-block-start: 0;
+  margin-block-end: 10;
+}
+
+h3#r-base {
+  margin-block-start: 0;
+  margin-block-end: 10;
+}
+
+h3#seleccionando {
+margin-block-start: 0;
+margin-block-end: 10;
+}
+
+h3#excluyendo {
+margin-block-start: 0;
+margin-block-end: 10;
+}
+
+h4 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
