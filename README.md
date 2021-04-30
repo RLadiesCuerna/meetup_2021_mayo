@@ -23,10 +23,10 @@ Este meetup está dirigido a personas con conocimientos básicos de R y estadís
 
 Puedes usar los siguientes comandos para su instalación:
 ```
-packages <- c("report", "palmerpenguins", "dplyr", "ggplot2", "rmarkdown")  # Paquetes
-installed_packages <- packages %in% rownames(installed.packages())          # Check de los paquetes
+packages <- c("report", "palmerpenguins", "dplyr", "ggplot2", "rmarkdown") # Paquetes
+installed_packages <- packages %in% rownames(installed.packages())         # Check de los paquetes
 if (any(installed_packages == FALSE)) {
-  install.packages(packages[!installed_packages], dependencies = TRUE)      # Instalación
+  install.packages(packages[!installed_packages], dependencies = TRUE)     # Instalación
 }
 ```
 
