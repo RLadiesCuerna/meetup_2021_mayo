@@ -18,15 +18,17 @@ Este meetup está dirigido a personas con conocimientos básicos de R y estadís
 - Aplicación real de report en un informe
 
 ## REQUERIMIENTOS DE SOFTWARE:
-- R >= 3.5 y R Studio preferiblemente en versión 1.4 (más actual)
-- Paquetes de R: report, palmerpenguins, dplyr, ggplot2, rmarkdown
+- `R >= 3.5` y R Studio preferiblemente en versión 1.4 (más actual)
+- Paquetes de R: `report`, `palmerpenguins`, `dplyr`, `ggplot2`, `rmarkdown`
 
 Puedes usar los siguientes comandos para su instalación:
-packages <- c("report", "palmerpenguins", "dplyr", "ggplot2", "rmarkdown") # Paquetes
-installed_packages <- packages %in% rownames(installed.packages())        # Check de los paquetes
+```
+packages <- c("report", "palmerpenguins", "dplyr", "ggplot2", "rmarkdown")  # Paquetes
+installed_packages <- packages %in% rownames(installed.packages())          # Check de los paquetes
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages], dependencies = TRUE)      # Instalación
 }
+```
 
 ## MATERIALES
 
