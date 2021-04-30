@@ -1,5 +1,6 @@
 # Bienvenidxs al Meetup Reportando resultados estadísticos con 'report'
 ## Fecha: 06 de mayo 2021
+## Slides: https://rladiescuerna.github.io/meetup_2021_mayo/slides/slides-report.html#1
 
 ## Detalles:
 
