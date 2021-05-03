@@ -41,9 +41,10 @@ div.pull-down {
 }
 
 pre {
-  overflow-x: scroll;
-  margin-block-start: 5;
-  margin-block-end: 10;
+  max-height: 300px;
+  max-width: 900px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 h1 {

@@ -8,22 +8,10 @@
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
-    <meta name="description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
-    <meta name="generator" content="xaringan and remark.js"/>
-    <meta name="twitter:title" content="Reportando resultados estadísticos con &#39;report&#39;"/>
-    <meta name="twitter:description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
-    <meta name="twitter:image:src" content="./img/portada.jpg"/>
-    <meta name="twitter:image:alt" content="Diapositiva titular para el tutorial Introducción al paquete xaringan"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:creator" content="@carlos_tc22"/>
-    <meta name="twitter:site" content="@carlos_tc22"/>
-    <meta property="og:title" content="Reportando resultados estadísticos con &#39;report&#39;"/>
-    <meta property="og:description" content="Tutorial de xaringan creado para R-Ladies Cuernavaca"/>
-    <meta property="og:image" content="./img/portada.jpg"/>
-    <meta property="og:image:alt" content="Diapositiva titular para el tutorial Introducción al paquete xaringan"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:locale" content="en_US"/>
-    <meta property="article:author" content="Carlos Torres"/>
+    <meta name="description" content="Tutorial de report creado para R-Ladies Cuernavaca"/>
+    <meta name="github-repo" content="RLadiesCuerna/meetup_2021_mayo"/>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
     <link href="libs/animate.css-xaringan-3.7.2/animate.fade.css" rel="stylesheet" />
     <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="libs/panelset-0.2.6/panelset.js"></script>
@@ -68,9 +56,6 @@ background-size: cover
 &lt;div/&gt;
 
 ---
-
-name: saludo
-layout: false
 class: inverse, middle, center
 
 &lt;!-- &lt;div class="my-logo-left"&gt;&lt;/div&gt; --&gt;
@@ -81,11 +66,7 @@ class: inverse, middle, center
 
 ## Carlos Torres 🇵🇦 
 
-### Cietífico de Datos 
-
-&lt;a href="https://www.bgeneral.com/"&gt;
-  &lt;img src="./img/logo-bg.png" width="30%"&gt;
-&lt;/a&gt;
+### Cietífico de Datos en &lt;a href="https://www.bgeneral.com/"&gt;Banco General&lt;/a&gt;
 
 [<i class="fa fa-link" role="presentation" aria-label="link icon"></i> carlostorrescubila.github.io](https://carlostorrescubila.github.io/) &amp;ensp;
 [<i class="fab fa-twitter" role="presentation" aria-label="twitter icon"></i> @carlos_tc22](https://twitter.com/carlos_tc22) &amp;ensp;
@@ -347,7 +328,7 @@ report_date()
 ```
 
 ```
-It's Thursday, April 29 of the year 2021, at  7am 38 and 58 seconds
+It's Monday, May 03 of the year 2021, at  7am 27 and 19 seconds
 ```
 
 ### Summary
@@ -358,7 +339,7 @@ report_date() %&gt;% summary()
 ```
 
 ```
-29/04/21 - 07:38:58
+03/05/21 - 07:27:19
 ```
 
 ---
@@ -376,8 +357,8 @@ Participantes &lt;- data.frame(
 )
 ```
 
-<div id="htmlwidget-162be8e1260fd1f98688" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-162be8e1260fd1f98688">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8"],[22,22,54,34,18,28,42,45],["F","M","F","M","F","M","F","M"],[1,2,24,9,0,5,12,20],["Highschool","Bachelor","PhD","Bachelor","Highschool","Bachelor","Bachelor","PhD"],["A","A","A","A","B","B","B","B"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Edad<\/th>\n      <th>Genero<\/th>\n      <th>Años_Experiencia<\/th>\n      <th>Nivel_Educacion<\/th>\n      <th>Grupo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7c0cd0d148fce876d62f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7c0cd0d148fce876d62f">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8"],[22,22,54,34,18,28,42,45],["F","M","F","M","F","M","F","M"],[1,2,24,9,0,5,12,20],["Highschool","Bachelor","PhD","Bachelor","Highschool","Bachelor","Bachelor","PhD"],["A","A","A","A","B","B","B","B"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Edad<\/th>\n      <th>Genero<\/th>\n      <th>Años_Experiencia<\/th>\n      <th>Nivel_Educacion<\/th>\n      <th>Grupo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -632,7 +613,12 @@ class: inverse, center, middle
 
 # Test de asociación
 
-La prueba de asociación o correlación se utiliza para probar si la correlación (indicada `\(\rho\)`) entre 2 variables es significativamente distinta de 0 o no en la población.
+La prueba de asociación o correlación se utiliza para probar si la correlación (indicada `\(\rho\)`) entre 2 variables es significativamente distinta de 0 o no en la población. Existen diferentes métodos para realizar análisis de correlación y sus respectivos contrastes de hipótesis: 
++ **Pearson:** es una prueba paramétrica que se utiliza para medir el grado de relación lineal entre variables cuantitativas. Para que la prueba pueda aplicarse las variables deben ser independientes y normalmente distribuidas.
++ **Spearman:** es una prueba no paramétrica que no conlleva ninguna suposición sobre la distribución de los datos. Es ideal cuando las variables son ordinales, de intervalo o de razón. 
++ **Kendall:** es una prueba no paramétrica que se calcula a partir del número de pares concordantes y discordantes. Se utiliza como alternativa a la prueba de Pearson cuando los datos con los que está trabajando fallaron en al menos uno de los supuestos. También es una alternativa a la prueba de Spearman cuando el tamaño de la muestra es pequeño y tiene muchos rangos empatados.
+
+### Hipótesis
 
 $$
 `\begin{cases}
@@ -651,7 +637,7 @@ $$
 
 ```r
 cor.test(
-  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm,
   method = "pearson"
   )
 ```
@@ -712,32 +698,36 @@ penguins$bill_length_mm | penguins$bill_depth_mm | -0.24 | [-0.33, -0.13] |  -4.
 
 # Diferencia de medias (t-test)
 
-La prueba de diferencia de medias es un test paramétrico que determina si las medias de dos conjuntos de datos son significativamente diferentes entre sí. Las hipótesis a contrastar son:
+La prueba de diferencia de medias es un test paramétrico que determina la igualdad de dos conjuntos de datos. Al elegir una prueba t, se deben considerar dos cosas: 
 
+1. **¿Prueba t de una muestra, dos muestras (independientes o pareadas)?** &lt;br&gt;
+Si la muestra se está comparando con un valor, entonces se realiza una prueba t de una muestra. Por el contrario, si se comparan dos grupos se realiza una prueba de dos muestras. Esta puede ser de dos poblaciones independientes o o de una misma población. 
+2. **¿Prueba t de una o dos colas?** &lt;br&gt;
+Si solo importa si las dos poblaciones son diferentes entre sí, se realiza una prueba t de dos colas. Por el contrario, si desea saber si la media de una población es mayor o menor que la otra, se realiza una prueba t de una cola.
+
+### Hipóteis
+.panelset[
+
+.panel[.panel-name[Una muestra]
+$$
+`\begin{cases}
+H_0: \mu = \mu_{0} \\
+H_1: \mu \neq \mu_{0} 
+\end{cases}`
+$$
+]
+
+.panel[.panel-name[Dos muestras]
 $$
 `\begin{cases}
 H_0: \mu_{1} = \mu_{2} \\
 H_1: \mu_{1} \neq \mu_{2} 
 \end{cases}`
 $$
-
-## Estadísticos de contraste
-
-.panelset[
-
-.panel[.panel-name[Muestras idependientes]
-$$
-t = 
-$$
-]
-
-.panel[.panel-name[Muestras apareadas]
-$$
-t = 
-$$
 ]
 
 ]
+
 
 ---
 
@@ -815,7 +805,152 @@ body_mass_g |   sex |     3862.27 |     4545.68 |     683.41 | [-840.58, -526.25
 
 ---
 
+# ANOVA
+
+.panelset[
+
+.panel[.panel-name[R base]
+
+```r
+aov(data = penguins, formula = body_mass_g ~ species) %&gt;% 
+  summary()
+```
+
+```
+             Df    Sum Sq  Mean Sq F value Pr(&gt;F)    
+species       2 146864214 73432107   343.6 &lt;2e-16 ***
+Residuals   339  72443483   213698                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+2 observations deleted due to missingness
+```
+]
+
+.panel[.panel-name[report]
+
+```r
+aov(data = penguins, formula = body_mass_g ~ species) %&gt;% 
+  report()
+```
+
+```
+The ANOVA (formula: body_mass_g ~ species) suggests that:
+
+  - The main effect of species is statistically significant and large (F(2, 339) = 343.63, p &lt; .001; Eta2 = 0.67, 90% CI [0.63, 0.71])
+
+Effect sizes were labelled following Field's (2013) recommendations.
+```
+]
+
+.panel[.panel-name[report as table]
+
+```r
+aov(data = penguins, formula = body_mass_g ~ species) %&gt;% 
+  report() %&gt;% 
+  as.data.frame()
+```
+
+```
+Parameter | Sum_Squares |  df | Mean_Square |      F |      p | Eta2 |  Eta2 90% CI
+-----------------------------------------------------------------------------------
+species   |    1.47e+08 |   2 |    7.34e+07 | 343.63 | &lt; .001 | 0.67 | [0.63, 0.71]
+Residuals |    7.24e+07 | 339 |    2.14e+05 |        |        |      |             
+```
+]
+
+]
+
+---
+
 # Regresión lineal
+
+---
+
+# Regresión lineal
+
+.panelset[
+
+.panel[.panel-name[R base]
+
+```r
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %&gt;% 
+  summary()
+```
+
+```
+
+Call:
+lm(formula = body_mass_g ~ bill_length_mm + bill_depth_mm, data = penguins)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1804.61  -454.83     8.15   463.53  1544.82 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    3343.136    429.912   7.776 9.05e-14 ***
+bill_length_mm   75.281      5.971  12.608  &lt; 2e-16 ***
+bill_depth_mm  -142.723     16.507  -8.646  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 585.1 on 339 degrees of freedom
+  (2 observations deleted due to missingness)
+Multiple R-squared:  0.4708,	Adjusted R-squared:  0.4677 
+F-statistic: 150.8 on 2 and 339 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+.panel[.panel-name[report]
+
+```r
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %&gt;% 
+  report()
+```
+
+```
+We fitted a linear model (estimated using OLS) to predict body_mass_g with bill_length_mm and bill_depth_mm (formula: body_mass_g ~ bill_length_mm + bill_depth_mm). The model explains a statistically significant and substantial proportion of variance (R2 = 0.47, F(2, 339) = 150.82, p &lt; .001, adj. R2 = 0.47). The model's intercept, corresponding to bill_length_mm = 0 and bill_depth_mm = 0, is at 3343.14 (95% CI [2497.50, 4188.77], t(339) = 7.78, p &lt; .001). Within this model:
+
+  - The effect of bill_length_mm is statistically significant and positive (beta = 75.28, 95% CI [63.54, 87.03], t(339) = 12.61, p &lt; .001; Std. beta = 0.51, 95% CI [0.43, 0.59])
+  - The effect of bill_depth_mm is statistically significant and negative (beta = -142.72, 95% CI [-175.19, -110.25], t(339) = -8.65, p &lt; .001; Std. beta = -0.35, 95% CI [-0.43, -0.27])
+
+Standardized parameters were obtained by fitting the model on a standardized version of the dataset.
+```
+]
+
+.panel[.panel-name[report as table]
+
+```r
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %&gt;% 
+  report() %&gt;% 
+  as.data.frame()
+```
+
+```
+Parameter      | Coefficient |             95% CI | t(339) |      p | Std. Coef. | Std. Coef. 95% CI |     Fit
+--------------------------------------------------------------------------------------------------------------
+(Intercept)    |     3343.14 | [2497.50, 4188.77] |   7.78 | &lt; .001 |   6.15e-16 |    [-0.08,  0.08] |        
+bill_length_mm |       75.28 | [  63.54,   87.03] |  12.61 | &lt; .001 |       0.51 |    [ 0.43,  0.59] |        
+bill_depth_mm  |     -142.72 | [-175.19, -110.25] |  -8.65 | &lt; .001 |      -0.35 |    [-0.43, -0.27] |        
+               |             |                    |        |        |            |                   |        
+AIC            |             |                    |        |        |            |                   | 5333.82
+BIC            |             |                    |        |        |            |                   | 5349.16
+R2             |             |                    |        |        |            |                   |    0.47
+R2 (adj.)      |             |                    |        |        |            |                   |    0.47
+Sigma          |             |                    |        |        |            |                   |  585.08
+```
+]
+
+]
 
 ---
 

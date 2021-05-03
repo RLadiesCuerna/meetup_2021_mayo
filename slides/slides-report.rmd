@@ -18,21 +18,8 @@ output:
 ```{r Metadata, echo=FALSE}
 library(metathis)
 meta() %>%
-  meta_general(
-    description = "Tutorial de xaringan creado para R-Ladies Cuernavaca",
-    generator = "xaringan and remark.js"
-  ) %>% 
-  #meta_name("github-repo" = "spcanelon/xaringan-rladies-xalapa") %>% 
-  meta_social(
-    title = "Reportando resultados estadísticos con 'report'",
-    #url = "https://spcanelon.github.io/xaringan-rladies-xalapa",
-    image = "./img/portada.jpg",
-    image_alt = "Diapositiva titular para el tutorial Introducción al paquete xaringan",
-    og_type = "website",
-    og_author = "Carlos Torres",
-    twitter_card_type = "summary_large_image",
-    twitter_creator = "@carlos_tc22"
-  )
+  meta_general(description = "Tutorial de report creado para R-Ladies Cuernavaca") %>% 
+  meta_name("github-repo" = "RLadiesCuerna/meetup_2021_mayo")
 ```
 
 ```{r Configuración, include=FALSE}
@@ -45,6 +32,7 @@ knitr::opts_chunk$set(
   )
 
 # xaringanExtra ----
+xaringanExtra::use_tile_view()
 xaringanExtra::use_animate_all("fade")
 xaringanExtra::use_panelset()
 xaringanExtra::use_clipboard(
@@ -70,9 +58,6 @@ background-size: cover
 <div/>
 
 ---
-
-name: saludo
-layout: false
 class: inverse, middle, center
 
 <!-- <div class="my-logo-left"></div> -->
@@ -83,11 +68,7 @@ class: inverse, middle, center
 
 ## Carlos Torres `r emo::ji("panama")` 
 
-### Cietífico de Datos 
-
-<a href="https://www.bgeneral.com/">
-  <img src="./img/logo-bg.png" width="30%">
-</a>
+### Cietífico de Datos en <a href="https://www.bgeneral.com/">Banco General</a>
 
 [`r shiny::icon("link")` carlostorrescubila.github.io](https://carlostorrescubila.github.io/) &ensp;
 [`r shiny::icon("twitter")` @carlos_tc22](https://twitter.com/carlos_tc22) &ensp;
@@ -429,7 +410,12 @@ class: inverse, center, middle
 
 # Test de asociación
 
-La prueba de asociación o correlación se utiliza para probar si la correlación (indicada $\rho$) entre 2 variables es significativamente distinta de 0 o no en la población.
+La prueba de asociación o correlación se utiliza para probar si la correlación (indicada $\rho$) entre 2 variables es significativamente distinta de 0 o no en la población. Existen diferentes métodos para realizar análisis de correlación y sus respectivos contrastes de hipótesis: 
++ **Pearson:** es una prueba paramétrica que se utiliza para medir el grado de relación lineal entre variables cuantitativas. Para que la prueba pueda aplicarse las variables deben ser independientes y normalmente distribuidas.
++ **Spearman:** es una prueba no paramétrica que no conlleva ninguna suposición sobre la distribución de los datos. Es ideal cuando las variables son ordinales, de intervalo o de razón. 
++ **Kendall:** es una prueba no paramétrica que se calcula a partir del número de pares concordantes y discordantes. Se utiliza como alternativa a la prueba de Pearson cuando los datos con los que está trabajando fallaron en al menos uno de los supuestos. También es una alternativa a la prueba de Spearman cuando el tamaño de la muestra es pequeño y tiene muchos rangos empatados.
+
+### Hipótesis
 
 $$
 \begin{cases}
@@ -447,7 +433,7 @@ $$
 .panel[.panel-name[R base]
 ```{r}
 cor.test(
-  x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
+  x = penguins$bill_length_mm, y = penguins$bill_depth_mm,
   method = "pearson"
   )
 ```
@@ -480,32 +466,36 @@ cor.test(
 
 # Diferencia de medias (t-test)
 
-La prueba de diferencia de medias es un test paramétrico que determina si las medias de dos conjuntos de datos son significativamente diferentes entre sí. Las hipótesis a contrastar son:
+La prueba de diferencia de medias es un test paramétrico que determina la igualdad de dos conjuntos de datos. Al elegir una prueba t, se deben considerar dos cosas: 
 
+1. **¿Prueba t de una muestra, dos muestras (independientes o pareadas)?** <br>
+Si la muestra se está comparando con un valor, entonces se realiza una prueba t de una muestra. Por el contrario, si se comparan dos grupos se realiza una prueba de dos muestras. Esta puede ser de dos poblaciones independientes o o de una misma población. 
+2. **¿Prueba t de una o dos colas?** <br>
+Si solo importa si las dos poblaciones son diferentes entre sí, se realiza una prueba t de dos colas. Por el contrario, si desea saber si la media de una población es mayor o menor que la otra, se realiza una prueba t de una cola.
+
+### Hipóteis
+.panelset[
+
+.panel[.panel-name[Una muestra]
+$$
+\begin{cases}
+H_0: \mu = \mu_{0} \\
+H_1: \mu \neq \mu_{0} 
+\end{cases}
+$$
+]
+
+.panel[.panel-name[Dos muestras]
 $$
 \begin{cases}
 H_0: \mu_{1} = \mu_{2} \\
 H_1: \mu_{1} \neq \mu_{2} 
 \end{cases}
 $$
-
-## Estadísticos de contraste
-
-.panelset[
-
-.panel[.panel-name[Muestras idependientes]
-$$
-t = 
-$$
-]
-
-.panel[.panel-name[Muestras apareadas]
-$$
-t = 
-$$
 ]
 
 ]
+
 
 ---
 
@@ -554,7 +544,76 @@ t.test(
 
 ---
 
+# ANOVA
+
+.panelset[
+
+.panel[.panel-name[R base]
+```{r}
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
+  summary()
+```
+]
+
+.panel[.panel-name[report]
+```{r}
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
+  report()
+```
+]
+
+.panel[.panel-name[report as table]
+```{r}
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
+  report() %>% 
+  as.data.frame()
+```
+]
+
+]
+
+---
+
 # Regresión lineal
+
+---
+
+# Regresión lineal
+
+.panelset[
+
+.panel[.panel-name[R base]
+```{r}
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
+  summary()
+```
+]
+
+.panel[.panel-name[report]
+```{r}
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
+  report()
+```
+]
+
+.panel[.panel-name[report as table]
+```{r}
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
+  report() %>% 
+  as.data.frame()
+```
+]
+
+]
 
 ---
 
