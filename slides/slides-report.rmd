@@ -9,7 +9,6 @@ output:
     lib_dir: libs 
     seal: false
     nature:
-      beforeInit: "macros.js"
       countIncrementalSlides: false
       highlightStyle: github
       highlightLines: true
@@ -157,6 +156,15 @@ Los datos fueron recopilados y puestos a disposición por la [Dra. Kristen Gorma
 
 ---
 
+# Datos utilizados: `penguins`
+
+```{r penguins data, echo=FALSE}
+DT::datatable(penguins, class = 'cell-border stripe', options = list(pageLength = 7, scrollX = T))
+```
+
+
+---
+
 # Reportes específicos
 
 Las principales funciones que generan informes específicos que no están relacionados con métodos estadísticos son:
@@ -269,7 +277,7 @@ Participantes <- data.frame(
 ```
 
 ```{r datos participantes show, echo=FALSE}
-DT::datatable(Participantes, options = list(pageLength = 4))
+DT::datatable(Participantes, class = 'cell-border stripe', options = list(pageLength = 4))
 ```
 
 ---
@@ -408,7 +416,11 @@ class: inverse, center, middle
 
 ---
 
-# Test de asociación
+# Reportes estadísticos 
+
+---
+
+## Test de asociación
 
 La prueba de asociación o correlación se utiliza para probar si la correlación (indicada $\rho$) entre 2 variables es significativamente distinta de 0 o no en la población. Existen diferentes métodos para realizar análisis de correlación y sus respectivos contrastes de hipótesis: 
 + **Pearson:** es una prueba paramétrica que se utiliza para medir el grado de relación lineal entre variables cuantitativas. Para que la prueba pueda aplicarse las variables deben ser independientes y normalmente distribuidas.
@@ -426,7 +438,7 @@ $$
 
 ---
 
-# Test de asociación
+## Test de asociación
 
 .panelset[
 
@@ -464,7 +476,7 @@ cor.test(
 
 ---
 
-# Diferencia de medias (t-test)
+## Diferencia de medias (t-test)
 
 La prueba de diferencia de medias es un test paramétrico que determina la igualdad de dos conjuntos de datos. Al elegir una prueba t, se deben considerar dos cosas: 
 
@@ -499,7 +511,7 @@ $$
 
 ---
 
-# Diferencia de medias (t-test)
+## Diferencia de medias (t-test)
 
 .panelset[
 
@@ -540,31 +552,59 @@ t.test(
 
 ---
 
-# ANOVA
+## Regresión lineal
+
+La regresión es una técnica que permite generar un modelo lineal en el que el valor de una variable dependiente ($Y$) se determina a partir de un conjunto de variables independientes ($X_{1}, X_{2}, X_{3}, \dots$).
+
+Los modelos de regresión lineal siguen la siguiente ecuación: 
+
+$$
+Y = \beta_{0} + \beta_{i} X_{i} + \varepsilon; \quad i = 1, 2, \dots, k
+$$
+
+Donde: 
++ La parte sistemática o no aleatoria es: $\beta_{0} + \beta_{i} X_{i}$
++ La parte estocástica o aleatoria es: $\varepsilon_{i}$
+
+Ademas:
++ $Y$ es la variable dependiente o variable respuesta.
++ $X_{i}$ es la i-ésima variable independiente o predictora.
++ $\beta_{0}$ es el intercepto, es decir, el valor de $Y$ cuando todas las variables predictoras valen 0.
++ $\beta_{i}$ es el incremento de la variable dependiente por cada unidad de $X_{i}$, manteniendo las demás variables constantes. Son conocidos como como coeficientes de regresión. 
++ $\varepsilon$ son los errores o residuales. 
 
 ---
 
-# ANOVA
+## Regresión lineal
 
 .panelset[
 
 .panel[.panel-name[R base]
 ```{r}
-aov(data = penguins, formula = body_mass_g ~ species) %>% 
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
   summary()
 ```
 ]
 
 .panel[.panel-name[report]
 ```{r}
-aov(data = penguins, formula = body_mass_g ~ species) %>% 
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
   report()
 ```
 ]
 
 .panel[.panel-name[report as table]
 ```{r}
-aov(data = penguins, formula = body_mass_g ~ species) %>% 
+lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
   report() %>% 
   as.data.frame()
 ```
@@ -574,40 +614,43 @@ aov(data = penguins, formula = body_mass_g ~ species) %>%
 
 ---
 
-# Regresión lineal
+## ANOVA
+
+El Análisis de Varianza (ANOVA) es una técnica paramétrica que se utiliza cuando los datos no están pareados y se quiere estudiar si existen diferencias significativas entre las medias de una variable aleatoria continua en los diferentes niveles de otra variable cualitativa o factor. Esta diferencia entre medias se detecta a través del estudio de la varianza entre grupos y dentro de grupos.
+
+### Hipótesis
+
+$$
+\begin{cases}
+H_{0}: \mu_{i} = \mu_{j} \\
+H_{1}: \mu_{i} \neq \mu_{j}
+\end{cases}
+\forall i \neq j
+$$
 
 ---
 
-# Regresión lineal
+## ANOVA
 
 .panelset[
 
 .panel[.panel-name[R base]
 ```{r}
-lm(
-  data = penguins, 
-  formula = body_mass_g~bill_length_mm + bill_depth_mm
-  ) %>% 
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
   summary()
 ```
 ]
 
 .panel[.panel-name[report]
 ```{r}
-lm(
-  data = penguins, 
-  formula = body_mass_g~bill_length_mm + bill_depth_mm
-  ) %>% 
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
   report()
 ```
 ]
 
 .panel[.panel-name[report as table]
 ```{r}
-lm(
-  data = penguins, 
-  formula = body_mass_g~bill_length_mm + bill_depth_mm
-  ) %>% 
+aov(data = penguins, formula = body_mass_g ~ species) %>% 
   report() %>% 
   as.data.frame()
 ```
