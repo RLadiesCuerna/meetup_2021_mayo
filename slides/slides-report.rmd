@@ -418,6 +418,23 @@ class: inverse, center, middle
 
 # Reportes estadísticos 
 
+Las técnicas estadísticas que son posibles reportar con `report` son: 
+
+- <p style="color:#88398A">Test de asosiación<p/>
+
+- <p style="color:#88398A">Test t para diferencia de medias<p/>
+
+- <p style="color:#88398A">Modelos lineales<p/>
+
+- <p style="color:#88398A">ANOVAs<p/>
+
+- Modelos lineales generalizados
+
+- Modelos mixtos
+
+- Modelos bayesianos
+
+
 ---
 
 ## Test de asociación
@@ -554,12 +571,12 @@ t.test(
 
 ## Regresión lineal
 
-La regresión es una técnica que permite generar un modelo lineal en el que el valor de una variable dependiente ($Y$) se determina a partir de un conjunto de variables independientes ($X_{1}, X_{2}, X_{3}, \dots$).
+La regresión es una técnica que permite generar un modelo lineal en el que el valor de una variable dependiente $(Y)$ se determina a partir de un conjunto de $k$ variables independientes $(X_{1}, X_{2}, \dots, X_{k})$.
 
 Los modelos de regresión lineal siguen la siguiente ecuación: 
 
 $$
-Y = \beta_{0} + \beta_{i} X_{i} + \varepsilon; \quad i = 1, 2, \dots, k
+Y = \beta_{0} + \beta_i X_i + \varepsilon; \quad i = 1, 2, \dots, k 
 $$
 
 Donde: 
