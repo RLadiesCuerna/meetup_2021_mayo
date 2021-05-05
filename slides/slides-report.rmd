@@ -633,7 +633,13 @@ lm(
 
 ## ANOVA
 
-El Análisis de Varianza (ANOVA) es una técnica paramétrica que se utiliza cuando los datos no están pareados y se quiere estudiar si existen diferencias significativas entre las medias de una variable aleatoria continua en los diferentes niveles de otra variable cualitativa o factor. Esta diferencia entre medias se detecta a través del estudio de la varianza entre grupos y dentro de grupos.
+El Análisis de Varianza (ANOVA) es una técnica paramétrica que se utiliza cuando los datos no están pareados y se quiere estudiar si existen diferencias significativas entre las medias de una variable aleatoria continua en los diferentes niveles de otra variable cualitativa o factor. Esta diferencia entre medias se detecta a través del estudio de la varianza entre grupos y dentro de grupos como se muestra en la siguiente tabla:
+
+|     F.V.     |     S.C.     |  g.l. |                  M.C.                 |     Estadístico <br>de contraste    |
+|:------------:|:------------:|:-----:|:-------------------------------------:|:-----------------------------------:|
+| Entre grupos | $SC_{inter}$ | $I-1$ | $MC_{inter} = \frac{SC_{inter}}{I-1}$ | $F = \frac{MC_{inter}}{MC_{intra}}$ |
+| Intra grupos | $SC_{intra}$ | $N-I$ | $MC_{intra} = \frac{SC_{intra}}{N-I}$ |                                     |
+| Total        | $SC_{total}$ | $N-1$ |                                       |                                     |
 
 ### Hipótesis
 
