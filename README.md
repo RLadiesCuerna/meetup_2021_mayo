@@ -20,7 +20,7 @@ Este meetup está dirigido a personas con conocimientos básicos de R y estadís
 
 ## REQUERIMIENTOS DE SOFTWARE:
 - `R >= 3.5` y R Studio preferiblemente en versión 1.4 (más actual)
-- Paquetes de R: `report`, `palmerpenguins`, `dplyr`, `ggplot2`, `rmarkdown`
+- Paquetes de R: `report`, `palmerpenguins`, `dplyr`, `rmarkdown`, `ggpubr`
 
 Puedes usar los siguientes comandos para su instalación:
 ```

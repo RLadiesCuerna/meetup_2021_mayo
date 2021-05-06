@@ -165,6 +165,15 @@ DT::datatable(penguins, class = 'cell-border stripe', options = list(pageLength 
 
 ---
 
+# Datos utilizados: `penguins`
+
+.center[
+<img src="https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png" width="80%">
+]
+
+
+---
+
 # Reportes específicos
 
 Las principales funciones que generan informes específicos que no están relacionados con métodos estadísticos son:
@@ -338,19 +347,19 @@ report_participants(
 .panelset[
 
 .panel[.panel-name[Default]
-```{r}
+```{r report sample}
 report_sample(penguins)
 ```
 ]
 
 .panel[.panel-name[Por grupo]
-```{r}
+```{r report sample grouped}
 report_sample(penguins, group_by = "species")
 ```
 ]
 
 .panel[.panel-name[Seleccionando columnas]
-```{r}
+```{r report sample grouped and selecting}
 report_sample(
   penguins,
   group_by = "species",
@@ -360,7 +369,7 @@ report_sample(
 ]
 
 .panel[.panel-name[Excluyendo columnas]
-```{r}
+```{r report sample grouped and excluding}
 report_sample(
   penguins, 
   group_by = "species",
@@ -383,23 +392,23 @@ class: inverse, center, middle
 .panelset[
 
 .panel[.panel-name[Default]
-```{r}
+```{r report df}
 report(penguins)
 ```
 ]
 
 .panel[.panel-name[Summary]
-```{r}
+```{r summary report df}
 report(penguins) %>% 
   summary()
 ```
 ]
 
 .panel[.panel-name[Usando dplyr]
-```{r}
+```{r summary report df grouped}
 penguins %>%
   select(-ends_with("_mm")) %>% 
-  #group_by(species) %>% 
+  group_by(species) %>% 
   report() %>% 
   summary()
 ```
@@ -460,7 +469,7 @@ $$
 .panelset[
 
 .panel[.panel-name[R base]
-```{r}
+```{r asosiacion}
 cor.test(
   x = penguins$bill_length_mm, y = penguins$bill_depth_mm,
   method = "pearson"
@@ -469,7 +478,7 @@ cor.test(
 ]
 
 .panel[.panel-name[report]
-```{r}
+```{r report asosiacion}
 cor.test(
   x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
   method = "pearson"
@@ -479,7 +488,7 @@ cor.test(
 ]
 
 .panel[.panel-name[report as table]
-```{r}
+```{r report asosiacion table}
 cor.test(
   x = penguins$bill_length_mm, y = penguins$bill_depth_mm, 
   method = "pearson"
@@ -533,7 +542,7 @@ $$
 .panelset[
 
 .panel[.panel-name[R base]
-```{r}
+```{r t-test}
 t.test(
   formula = body_mass_g ~ sex, 
   data = penguins, 
@@ -543,7 +552,7 @@ t.test(
 ]
 
 .panel[.panel-name[report]
-```{r}
+```{r report t-test}
 t.test(
   formula = body_mass_g ~ sex, 
   data = penguins, 
@@ -554,7 +563,7 @@ t.test(
 ]
 
 .panel[.panel-name[report as table]
-```{r}
+```{r report t-test table}
 t.test(
   formula = body_mass_g ~ sex, 
   data = penguins, 
@@ -597,7 +606,7 @@ Ademas:
 .panelset[
 
 .panel[.panel-name[R base]
-```{r}
+```{r regresion}
 lm(
   data = penguins, 
   formula = body_mass_g~bill_length_mm + bill_depth_mm
@@ -607,7 +616,7 @@ lm(
 ]
 
 .panel[.panel-name[report]
-```{r}
+```{r report regresion}
 lm(
   data = penguins, 
   formula = body_mass_g~bill_length_mm + bill_depth_mm
@@ -617,7 +626,7 @@ lm(
 ]
 
 .panel[.panel-name[report as table]
-```{r}
+```{r report regresion table}
 lm(
   data = penguins, 
   formula = body_mass_g~bill_length_mm + bill_depth_mm
@@ -658,21 +667,21 @@ $$
 .panelset[
 
 .panel[.panel-name[R base]
-```{r}
+```{r anova}
 aov(data = penguins, formula = body_mass_g ~ species) %>% 
   summary()
 ```
 ]
 
 .panel[.panel-name[report]
-```{r}
+```{r report anova}
 aov(data = penguins, formula = body_mass_g ~ species) %>% 
   report()
 ```
 ]
 
 .panel[.panel-name[report as table]
-```{r}
+```{r report anova table}
 aov(data = penguins, formula = body_mass_g ~ species) %>% 
   report() %>% 
   as.data.frame()
