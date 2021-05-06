@@ -2,7 +2,9 @@
 title: "Ejemplo con report"
 subtitle: "R-Ladies Cuernavaca"
 author: "Carlos A. Torres Cubilla"
-output: html_document
+output: 
+  prettydoc::html_pretty: 
+    theme: "hpstr"
 ---
 
 ```{r setup, include=FALSE}
@@ -12,16 +14,115 @@ knitr::opts_chunk$set(
   message = FALSE, 
   warning = FALSE
   )
+rmdformats::downcute()
 ```
 
 ## Paquetes utilizados
 
+Para este ejemplo utilizaremos los paquetes `report`, `palmerpenguins`, `dplyr` y `ggpubr`.
+
+```{r paquetes}
+library(report)
+library(palmerpenguins)
+library(dplyr)
+library(ggpubr)
+```
+
 ## Datos utilizados
+
+```{r report datos}
+penguins_report <- penguins %>% 
+  select(-ends_with("_mm") & -body_mass_g) %>%
+  mutate(year = factor(year)) %>% 
+  group_by(species) %>% 
+  report %>%
+  summary()
+```
+
+`r penguins_report`
 
 ## Test de asosiación
 
+```{r asosiacion}
+asosiacion <- cor.test(
+  formula = ~ bill_length_mm + bill_depth_mm,
+  data = penguins,
+  method = "pearson"
+  ) %>% 
+  report() %>% 
+  as.data.frame()
+```
+
+La correlación entre las variables `r asosiacion$Parameter1` y `r asosiacion$Parameter2` para las tres especies de pinguinos consideradas es de `r round(asosiacion$r, 4)`Con un p-valor asociado de `r format(asosiacion$p, scientific = TRUE, digits = 4)`. Existe una relación lineal baja entre las variables.
+
+```{r scatter plot}
+ggscatter(
+  data = penguins, 
+  x = "bill_length_mm", y = "bill_depth_mm", 
+  add = "reg.line", conf.int = TRUE,  
+  cor.coef = TRUE, cor.method = "pearson",
+  cor.coeff.args = list(label.y.npc = "bottom"), 
+  xlab = "Largo del pico (mm)", ylab = "Alto del pico (mm)", 
+  ggtheme = theme_minimal(), 
+  )
+```
+
+
 ## Diferencia de medias
+
+```{r t-test}
+t_test <- t.test(
+  formula = body_mass_g ~ sex, 
+  data = penguins, 
+  paired = FALSE
+  ) %>% 
+  report() %>% 
+  as.data.frame()
+```
+
+La diferencia media de `r t_test$Parameter` en funcion del `r t_test$Group` es de `r round(t_test$Difference, 1)` con un p valor asociado de `r format(t_test$p, scientific = TRUE, digits = 4)`. El tamaño de efecto (d de Cohen) asosiado a la diferencia de medias es de `r round(t_test$d, 2)`. Existe una diferencia grande entre los grupos considerados.
+
+```{r density}
+ggdensity(
+  data = na.omit(penguins), 
+  x =  "body_mass_g", fill = "sex", 
+  xlab = "Masa corporal (g)", 
+  legend = "right",
+  ggtheme = theme_minimal(), 
+  )
+```
+
+
 
 ## Regresión lineal
 
+```{r regresion}
+regresion <- lm(
+  data = penguins, 
+  formula = body_mass_g~bill_length_mm + bill_depth_mm
+  ) %>% 
+  report() %>% 
+  summary
+```
+
+`r regresion`
+
 ## ANOVA
+
+```{r anova}
+anova <- aov(data = penguins, formula = body_mass_g ~ species) %>% 
+  report() %>% 
+  as.data.frame()
+```
+
+El efecto `r anova$Paramete[1]` es significativo con un p-valor de `r format(anova$p[1], scientific = TRUE, digits = 4)`; este efecto representa el `r round(anova$Eta2[1] * 100, 2)`% de la variabilidad total existente. Al menos uno de los grupos de `r anova$Paramete[1]` tiene un una masa corporal distinta. 
+
+```{r boxplot}
+ggboxplot(
+  data = penguins, 
+  x = "species", y = "body_mass_g", fill = "species", 
+  xlab = "Especies", ylab = "Masa corporal (g)",
+  legend = "right",
+  ggtheme = theme_minimal(), 
+  )
+```
